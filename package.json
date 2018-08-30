@@ -1,0 +1,22 @@
+{
+  "name": "work-cli",
+  "version": "1.0.0",
+  "description": "a  cli for  work",
+  "main": "index.js",
+  "bin": {
+    "work": "./bin/work",
+    "work-init": "./bin/work-init"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "work",
+    "cli"
+  ],
+  "author": "hewenxuan",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.17.1"
+  }
+}
