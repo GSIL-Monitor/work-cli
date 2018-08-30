@@ -48,12 +48,14 @@ exec("find . -maxdepth 1 -type d -name " + projectName)
         })
     })
 }).then(context => {
+  console.log('{context}', context)
     return generator({
       metadata: context.metadata,
       src: context.downloadTemp,
       dest: context.root
     })
     .then(() => {
+      console.log('{initGitHook}')
       return initGitHook(context.root)
     })
     .then(() => {
