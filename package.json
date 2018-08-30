@@ -1,6 +1,6 @@
 {
   "name": "work-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a  cli for  work",
   "main": "index.js",
   "bin": {
@@ -17,6 +17,13 @@
   "author": "hewenxuan",
   "license": "ISC",
   "dependencies": {
-    "commander": "^2.17.1"
+    "commander": "^2.17.1",
+    "glob": "^7.1.2",
+    "handlebars": "^4.0.11",
+    "inquirer": "^5.2.0",
+    "log-symbols": "^2.2.0",
+    "metalsmith": "^2.3.0",
+    "minimatch": "^3.0.4",
+    "ora": "^2.1.0"
   }
 }

@@ -1,0 +1,74 @@
+#!/usr/bin/env node
+const program = require('commander')
+const path = require('path')
+const util = require('util');
+const fs = require('fs')
+const glob = require('glob')
+const inquirer = require('inquirer')
+const prompt = require('../lib/prompt')
+const download = require('../lib/download')
+const generator = require('../lib/generator')
+const logger = require('../lib/logger')
+const { initGitHook } = require('../lib/afterbuild')
+const child_process = require('child_process')
+
+const exec = util.promisify(child_process.exec);
+program.usage('<project-name>').parse(process.argv)
+// 根据输入，获取项目名称
+let projectName = program.args[0]
+if (!projectName) {  // project-name 必填
+  program.help()
+  return
+}
+
+let rootName = path.basename(process.cwd())
+console.log('[rootName]', rootName);
+
+exec("find . -maxdepth 1 -type d -name " + projectName)
+.then(result => result.stdout)
+.then(result => result.indexOf(projectName) > -1 )
+.then(result => {
+  if(result) return Promise.reject({message: `项目${projectName}已经存在`});
+  if(rootName === projectName) return ".";
+  return projectName;
+}).then(projectRoot => {
+  if (projectRoot !== '.') {
+    fs.mkdirSync(projectRoot)
+  }
+  return inquirer.prompt(prompt(projectName))
+    .then(answers => {
+      return download(projectRoot, answers.library)
+        .then(target => {
+          return {
+            name: projectRoot !== '.' ? projectRoot : rootName,
+            root: projectRoot,
+            downloadTemp: target,
+            metadata: answers
+          }
+        })
+    })
+}).then(context => {
+    return generator({
+      metadata: context.metadata,
+      src: context.downloadTemp,
+      dest: context.root
+    })
+    .then(() => {
+      return initGitHook(context.root)
+    })
+    .then(() => {
+      logger.success('创建成功 :)\n')
+      logger.info(`启动dev:\ncd ${context.root}\nnpm install\nnpm run dev`)
+      if (context.metadata.slardar) {
+        logger.empty()
+        logger.warning('监控接入须知：')
+        logger.warning('- 请前往slardar平台创建相应bid和pid (http://slardar.byted.org/node/browser_list/)')
+        logger.warning('- 修改src/pagelets/slardar.html中bid、pid')
+      }
+      logger.empty()
+    })
+  })
+  .catch(err => {
+    logger.error(`创建失败：${err.message}\n`)
+    process.exit(1)
+})

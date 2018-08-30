@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 var program = require('commander');
-program
-  .command('rm <dir>')
-  .option('-r, --recursive', 'Remove recursively')
-  .action(function (dir, cmd) {
-    console.log('remove ' + dir + (cmd.recursive ? ' recursively' : ''))
-  })
-program.parse(process.argv)
+
+program.version(require("../package.json").version, '-v, --version')
+  .usage('<command> [项目名称]')
+  .command('init', '创建新项目')
+  .parse(process.argv)
