@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  测试微信分享
+  <script src="https://cdn.bootcss.com/zepto/1.1.6/zepto.js"></script>
+  <script>
+    (function(root, factory) {
+        if(typeof define === 'function' && define.amd) {
+          define([], factory);
+        } else if (typeof exports === 'object') {
+          module.exports = factory();
+        } else {
+          // 浏览器全局变量(root 即 window)
+          root.weixinShare = factory();
+        }
+      }(this, function() {
+          function weixinShare(shareData) {
+              var nonceStr = "Wm3WZYTPz0wzccnW";
+              var timestamp = Date.now();
+              var appid = "wx2e111d7d3fa42b69";
+              var debug = false;
+
+              var success = function(response) {
+                  if(response.code == 1){
+                      wx.config({
+                          debug: debug,
+                          appId: appid,
+                          timestamp: timestamp,
+                          nonceStr: nonceStr,
+                          signature: response.signature,
+                          jsApiList: ["onMenuShareTimeline","onMenuShareAppMessage"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                      });
+                  } else {
+
+                  }
+                  wx.ready(function() {
+                      wx.onMenuShareTimeline({
+                          title: shareData.shareTitle, // 分享标题
+                          link: shareData.shareUrl || location.href, // 分享链接
+                          imgUrl: shareData.shareImg, // 分享图标
+                          success: function() {
+                              // 用户确认分享后执行的回调函数
+                              sendToutiaoGifLog({
+                                  "event" : "success.shareInWeixin"
+                              });
+                          },
+                          cancel: function() {
+                              // 用户取消分享后执行的回调函数
+                          }
+                      });
+                      wx.onMenuShareAppMessage({
+                          title: shareData.shareTitle, // 分享标题
+                          desc: shareData.shareDesc, // 分享描述
+                          link: shareData.shareUrl || location.href, // 分享链接
+                          imgUrl: shareData.shareImg, // 分享图标
+                          type: '', // 分享类型,music、video或link，不填默认为link
+                          dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                          success: function() {
+                              // 用户确认分享后执行的回调函数
+                              sendToutiaoGifLog({
+                                  "event" : "success.shareInWeixin"
+                              });
+                          },
+                          cancel: function() {
+                              // 用户取消分享后执行的回调函数
+                          }
+                      });
+                  });
+                  wx.error(function(res) {
+                      console.debug(res)
+                  });
+              }
+              var script = document.createElement('script');
+                  script.type = 'text/javascript';
+                  script.src = '//s2.pstatp.com/js/weixin_jssdk.js?ver=0203';
+                  var body = document.getElementsByTagName('body')[0];
+                  body.appendChild(script);
+
+              script.onload = function() {
+                  $.ajax({
+                      type: "GET",
+                      dataType: "jsonp",
+                      jsonp: "callback",
+                      data: {
+                          appid: appid,
+                          noncestr: nonceStr,
+                          timestamp: timestamp,
+                          url: window.location.href //encodeURIComponent(window.location.href)
+                      },
+                      url: "//open.snssdk.com/jssdk_signature/",
+                      success: success
+                  });
+              }
+          }
+
+          return weixinShare;
+      }));  
+
+      window.weixinShare({
+        shareTitle: '懂车就来答，把车开回家，你敢来吗？',
+        shareDesc: '每晚9点准时开始，现金大奖等你来拿！',
+        shareImg: 'https://s3.pstatp.com/growth/mobile_detail_auto/image/dongchedi_logo_242f4cd45d18aea82f6f31fae26fb5bf.png',
+        shareUrl: 'https://m3.toutiaopage.com/motor/sf/car_hero/backflow.html?uid=&did=&aid='
+      })
+  </script>
+
+</body>
+</html>
+
+
+"if(typeof document !== 'undefined'){     var IMPORT_INPORT = document.createElement('input')     IMPORT_INPORT.setAttribute('name', 'shareLink')     IMPORT_INPORT.setAttribute('val', 'https://m.dcdapp.com/magic/runtime/?id=1706')     document.body.append(IMPORT_INPORT)};true"

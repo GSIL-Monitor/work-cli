@@ -1,0 +1,64 @@
+.car-modal{
+  width: 335px;
+  width: calc(100% - 40px);
+  height: 484px;
+  position: fixed;
+  z-index:999;
+  background: #ffffff;
+  box-shadow: 0 12px 40px 0 rgba(0,0,0,0.20);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  .car-modal-content{
+    flex: 1;
+    .car-modal--img{
+      width: 156px;
+      height: 152px;
+      background: url('Asset/images/gold_icon_modal.png') no-repeat center /  cover;
+      margin: 0 auto;
+    }
+
+    .car-modal--text-main{
+      font-size: 26px;
+      color: #3585FF;
+      text-align: center;
+    }
+
+    .car-modal--text-assitant{
+      font-size: 16px;
+      color: #000000;
+      text-align: center;
+      
+    }
+
+    .car-modal--click-area{
+      text-align: center;
+      font-size: 14px;
+      color: #333333;
+      span{
+        display: inline-block;
+        background: #F2F2F2;
+        padding: 10px 14px;
+        border-radius: 5px;        
+      }
+    }
+    .car-modal--click-tip{
+      font-size: 12px;
+      color: #999999;
+      text-align: center;
+      margin-top: 5px;
+    }
+  }
+
+  .car-modal-footer{
+    height: 50px;
+    line-height: 50px;
+    border-top: 1px solid #eaeaea;
+    font-size: 16px;
+    color: #3585FF;
+    text-align: center;
+  }
+}

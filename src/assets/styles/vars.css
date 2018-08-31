@@ -1,0 +1,14 @@
+:root{
+  --buttonColor: #3585FF;
+  --errorColor: #F85959;
+  --correctColor: #19D98B;
+}
+.relative{
+  position: relative;
+  .center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

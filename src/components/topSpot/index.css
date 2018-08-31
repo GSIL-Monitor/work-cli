@@ -1,0 +1,42 @@
+.ranklist-topSpot{
+  width: 70px;
+  .avatar{
+    height: 70px;
+    position: relative;
+    img{
+      width: 100%;
+      border-radius: 100%;
+    }
+    .top_num{
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 50%);
+      width: 20px;
+      height: 20px;
+      color: #000000;
+      font-size: 14px;
+      line-height: 20px;
+      text-align: center;
+      background: #FFE100;
+      border-radius: 100%;
+    }
+  }
+
+  .user_name{
+    font-size: 16px;
+    color: #FFFFFF;
+    text-align: center;
+    margin-top: 16px;
+  }
+
+  .money{
+    background: rgba(0, 0, 0, .2);
+    border-radius: 100px;
+    color: #FFF431;
+    font-size: 12px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+  }
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>懂车英雄</title>
+    <%= require('raw-loader!!Pagelet/flexable.html') %>
+    <%= htmlWebpackPlugin.files.webpackManifest %>
+    <% for (var css in htmlWebpackPlugin.files.css) { %>
+    <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+    <% } %>
+    <%= require('raw-loader!Pagelet/slardar.html') %>
+    
+    <% for (var head of htmlWebpackPlugin.options.head) { %>
+    <script src="<%= htmlWebpackPlugin.files.chunks[head].entry %>" crossorigin="anonymous"></script>
+    <% } %>
+</head>
+<body>
+    <div id="root"></div>
+    <%= require('raw-loader!Pagelet/serviceWorker.html') %>
+    <% for (var body of htmlWebpackPlugin.options.body) { %>
+    <script src="<%= htmlWebpackPlugin.files.chunks[body].entry %>" crossorigin="anonymous"></script>
+    <% } %>
+</body>
+</html>

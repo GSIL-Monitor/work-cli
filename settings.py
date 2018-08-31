@@ -1,0 +1,9 @@
+APP_TYPE = "binary"
+PRODUCT = "motor"
+SUBSYS = "sf"
+MODULE = "car_hero"
+#PORT = "2000"
+#SERVICE_PORT = "2000"
+#REQUIRE_NGINX = False
+APPEXECRELOAD = "pm2 reload bds --no-daemon"
+#APPEXECSTOP = "pm2 stop bds"
