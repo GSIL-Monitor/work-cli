@@ -1,7 +1,6 @@
 var webpack = require('webpack')
 var path = require('path')
 var config = require('./webpack.base.conf.js')
-var devEnv = require('../config/dev.env.js')
 var srcMap = require('../config/src.map')
 config = Object.assign({}, config)
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;

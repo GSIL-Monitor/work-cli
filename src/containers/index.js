@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import Home from 'Page/Home'
-import 'Asset/styles/index'
 
 const MOUNT_NODE = document.getElementById('root')
 

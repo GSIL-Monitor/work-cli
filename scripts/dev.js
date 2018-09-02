@@ -6,22 +6,23 @@ var apiMocker = require('webpack-api-mocker')
 var webpackDevServer = require('webpack-dev-server')
 var WebpackHotMiddleware = require('webpack-hot-middleware')
 var config = require('../build/webpack.dev.conf.js')
-var devenv = require('../config/dev.env.js')
+var { dev } = require('../config/config.js')
 var devproxy = require('../config/dev.proxy.js')
 var mocker = path.resolve('mock/app.js')
 var detect = require('detect-port')
 var chalk = require('chalk')
 var chokidar = require('chokidar')
-var start = require('./fork')
+var {start, send} = require('./fork')
+var {RESTART} = require('./signal')
 var clearConsole = require('react-dev-utils/clearConsole')
 var getProcessForPort = require('react-dev-utils/getProcessForPort')
 var openBrowser = require('react-dev-utils/openBrowser')
 var prompt = require('react-dev-utils/inquirer').prompt
 var Compiler = require('./compiler')
-var { send, RESTART } = require('./send')
 var isInteractive = process.stdout.isTTY; // 判断是否文本终端,便于clearConsole
-var protocol = devenv.protocol
-var host = devenv.host
+var protocol = dev.protocol
+var host = dev.host
+// 热重启配置
 function setupDevConfig(port) {
   var devServerConfig = {
     disableHostCheck: true,
@@ -43,7 +44,7 @@ function setupDevConfig(port) {
     watchOptions: {
       ignored: /node_modules/
     },
-    publicPath: devenv.publicPath,
+    publicPath: dev.publicPath,
     stats: { colors: true }, // 彩色输出
     // historyApiFallback: { // 让我们所有404的请求都返回这个
     //     index: '/home/index.html'
@@ -63,6 +64,7 @@ function setupDevConfig(port) {
   return devServerConfig;
 }
 
+// 监听文件变动
 function setupWatch(devServer) {
   const files = [
     path.join(__dirname, '../build/'),
@@ -102,20 +104,27 @@ function runDevServer(compiler, devConfig, url) {
 }
 
 function run(port) {
-  let url = `${protocol}://${host}:${port}${devenv.autoOpen}`
+  let url = `${protocol}://${host}:${port}${dev.autoOpen}`
+  console.log("[4]")
   let devConfig = setupDevConfig(port)
+  console.log("[5]")
   let compiler = Compiler(config, url)
+  console.log("[url]", url)
   runDevServer(compiler, devConfig, url)
 }
 
 function init() {
-  detect(devenv.browserPort).then((port) => {
-    const DEFAULT_PORT = devenv.browserPort;
+  console.log('[init]', dev.browserPort);
+  detect(dev.browserPort).then((port) => {
+    console.log("[2]")
+    const DEFAULT_PORT = dev.browserPort;
     if (port == DEFAULT_PORT) {
+      console.log("[3]")
       run(port);
       return;
     }
     if (isInteractive) {
+      console.log("[4]")
       clearConsole();
       const existingProcess = getProcessForPort(DEFAULT_PORT);
       const question =

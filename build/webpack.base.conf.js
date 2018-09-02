@@ -21,10 +21,13 @@ var assetsPath = path.resolve(srcPath, 'assets')
 var utilsPath = path.join(assetsPath, 'js/utils/utils.js')
 var pxtorem = require('postcss-pxtorem')
 var mapConfig = require('../config/src.map.js')
-var devConfig = require('../config/dev.env.js')
-var prodConfig = require('../config/prod.env.js')
+var config = require('../config/config.js')
+var devConfig = config.dev;
+var prodConfig = config.prod;
 const HappyPack = require('happypack');
 var sprites = require('postcss-sprites');
+const utils = require("util");
+
 // 支持webpack4，把项目按webpack4重新配置
 const HtmlCriticalWebpackPlugin = require("html-critical-webpack-plugin");
 
@@ -81,7 +84,7 @@ function resolve_script_entry(path, names) {
     entries[path] = names.map(name => /\.jsx?$/.test(name) ? relative(name.replace(/%name/g, path)) : name)
 }
 
-function resolve_pages(path, files) {
+function resolve_pages(path="", files) {
     for (let basename in files) {
         const filename = basename
         const file = files[basename], scripts = file.scripts || {}
@@ -100,7 +103,7 @@ function resolve_pages(path, files) {
         const options = {
             multihtmlCache: true,
             filename: filename,
-            template: (path || '') + '/' + (file.source ? file.source.replace(/%name/g, filename) : filename),
+            template: path + '/' + (file.source || filename),
             inject: false,
             chunks: chunks,
             head: scripts.head || [],

@@ -1,6 +1,6 @@
 var WebpackOnBuildPlugin = require('on-build-webpack')
 
-var stageEnv = require('../config/stage.env.js')
+var stageEnv = require('../config/config.js').stage;
 
 var rootPath = process.cwd()
 

@@ -1,4 +1,10 @@
-import $ from 'zepto-webpack'
+const appendFrame = (id, src) => {
+  var element = document.createElement('iframe');
+  element.id=id;
+  element.src=src;
+  element.style.display="none";
+  document.body.appendChild(element);
+}
 
 export function openApp (schemeurl, dLink, yybLink) {
   var userAgent = navigator.userAgent.toLowerCase()
@@ -18,16 +24,16 @@ export function openApp (schemeurl, dLink, yybLink) {
       window.location.href = yybLink
     } else {
       // 打开外链
-      $('#app_iframe').remove()
-      $('body').append("<iframe id='app_iframe' src='" + scheme + "' style='display:none'></iframe>")
+      document.body.removeChild(document.querySelector("#app_iframe"));
+      appendFrame('app_iframe', `'${scheme}'`);
     }
   }
   if (isIos) {
     if ((userAgent.match(/OS (9|1[0-9])_\d[_\d]* like Mac OS X/i))) {
       location.href = scheme
     } else {
-      $('#app_iframe').remove()
-      $('body').append("<iframe id='app_iframe' src='" + scheme + "' style='display:none'></iframe>")
+      document.body.removeChild(document.querySelector("#app_iframe"));
+      appendFrame('app_iframe', `'${scheme}'`);
       // location.href = scheme
     }
   }
