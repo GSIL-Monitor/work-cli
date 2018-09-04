@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
-import Home from 'Page/Home'
+import Home from '$pages/Home'
 
 const MOUNT_NODE = document.getElementById('root')
 

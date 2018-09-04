@@ -2,14 +2,15 @@ var path = require('path')
 var fs = require('fs')
 var webpack = require('webpack')
 // 只支持webpack4
-// const PrepackWebpackPlugin = require('prepack-webpack-plugin').default;
+const PrepackWebpackPlugin = require('prepack-webpack-plugin').default;
+const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default;
 var autoprefixer = require('autoprefixer')
 var postcssSimpleVars = require('postcss-simple-vars')
 var postcssExtend = require('postcss-extend')
 var precss = require('precss')
 var postcssMixins = require('postcss-mixins')
 var cssnano = require('cssnano')
-var HtmlWebpackPlugin = require('html-webpack-plugin-for-multihtml')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var CleanWebpackPlugin = require('clean-webpack-plugin')
 var WebpackStableModuleIdAndHash = require('webpack-stable-module-id-and-hash')
@@ -84,7 +85,7 @@ function resolve_script_entry(path, names) {
     entries[path] = names.map(name => /\.jsx?$/.test(name) ? relative(name.replace(/%name/g, path)) : name)
 }
 
-function resolve_pages(path="", files) {
+function resolve_pages(path = "", files) {
     for (let basename in files) {
         const filename = basename
         const file = files[basename], scripts = file.scripts || {}
@@ -308,6 +309,29 @@ var config = {
             disable: __DEV__
         }),
 
+        // new PrepackWebpackPlugin({}),
+        new WebpackDeepScopeAnalysisPlugin(),
+        new webpack.optimize.SplitChunksPlugin({
+            chunks: "initial",            // 必须三选一：'initial' | 'all' | 'async'
+            minSize: 30000,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            name: true,
+            cacheGroups: {
+                vendors: {
+                    chunks: 'all',
+                    test: /node_modules/,      // 正则规则验证，如果符合就提取chunks
+                    name: "vendors"            // 要缓存的分割出来的chunk名称
+                },
+                default: {
+                    chunks: 'all',
+                    name: 'commons',
+                    reuseExistingChunks: true
+                }
+            }
+        }),
+
         new webpack.HashedModuleIdsPlugin(),  // 优化hash值=>缓存优化
 
         new HappyPack({
@@ -336,13 +360,13 @@ var config = {
         mainFields: ['jsnext:main', 'browser', 'main', 'index'],
         alias: {
             // 路径别名
-            SRC: relative('src'),
-            Asset: relative('src/assets'),
-            Page: relative('src/pages'),
-            Pagelet: relative('src/pagelets'),
-            Component: relative('src/components'),
-            Util: relative('src/utils'),
-            Service: relative('src/services')
+            $src: relative('src'),
+            $assets: relative('src/assets'),
+            $pages: relative('src/pages'),
+            $pagelets: relative('src/pagelets'),
+            $components: relative('src/components'),
+            $utils: relative('src/assets/utils'),
+            $services: relative('src/services')
         },
     }
 }

@@ -14,7 +14,7 @@ module.exports = {
     pages: {
         "index.html": {
             scripts: {
-                body: [ "vendors", "index" ]
+                body: [ "commons", "vendors", "index" ]
             },
             source: "default.html"
         }
