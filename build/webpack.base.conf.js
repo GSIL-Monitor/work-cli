@@ -309,7 +309,9 @@ var config = {
             disable: __DEV__
         }),
 
-        // new PrepackWebpackPlugin({}),
+        new PrepackWebpackPlugin({
+            test: "/\.js($|\?)/i"
+        }),
         new WebpackDeepScopeAnalysisPlugin(),
         new webpack.optimize.SplitChunksPlugin({
             chunks: "initial",            // 必须三选一：'initial' | 'all' | 'async'

@@ -2,7 +2,7 @@ import { $, $$ } from './selector'
 import optimizeImage from './optimize-image'
 
 export default class LazyLoadImage {
-  constructor(selector, options = {}) {
+  constructor (selector, options = {}) {
     const { root = null, optimize = true } = options
     this.selector = selector
     this.optimizeImage = optimize
@@ -10,12 +10,12 @@ export default class LazyLoadImage {
     this.root = root
     this.invoke()
   }
-  refresh() {
+  refresh () {
     this.elements = $$(this.selector)
     this.destory()
     this.invoke()
   }
-  invoke() {
+  invoke () {
     this.observer = new IntersectionObserver(
       (changes) => {
         changes.forEach((change) => {
@@ -35,13 +35,13 @@ export default class LazyLoadImage {
       this.observer.observe(item)
     })
   }
-  destory() {
+  destory () {
     this.observer.disconnect()
     this.observer = null
   }
 }
 const cache = new WeakMap()
-function insertImage(ele, optimize) {
+function insertImage (ele, optimize) {
   if (!ele || !ele.dataset.src) return
   if (cache.get(ele)) return
   cache.set(ele, 1)

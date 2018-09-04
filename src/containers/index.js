@@ -4,7 +4,6 @@ import { AppContainer } from 'react-hot-loader'
 import Home from '$pages/Home'
 
 const MOUNT_NODE = document.getElementById('root')
-
 class App extends Component {
   render () {
     return (
