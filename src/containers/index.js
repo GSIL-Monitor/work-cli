@@ -15,7 +15,7 @@ class App extends Component {
   }
 }
 
-const render = () => {
+function render () {
   ReactDOM.render(
     <AppContainer>
       <App />
