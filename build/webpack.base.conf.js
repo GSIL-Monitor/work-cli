@@ -28,7 +28,7 @@ var prodConfig = config.prod;
 const HappyPack = require('happypack');
 var sprites = require('postcss-sprites');
 const utils = require("util");
-
+const { SkeletonPlugin } = require('page-skeleton-webpack-plugin')
 // 支持webpack4，把项目按webpack4重新配置
 const HtmlCriticalWebpackPlugin = require("html-critical-webpack-plugin");
 
@@ -114,6 +114,11 @@ function resolve_pages(path = "", files) {
         file.options && Object.assign(options, file.options)
         plugins.push(new HtmlWebpackPlugin(options))
     }
+    plugins.push(new SkeletonPlugin({
+        routes: ['/index.html'], // 将需要生成骨架屏的路由添加到数组中
+        pathname: relative('src'),
+        staticDir: relative('dist')
+    }))
 }
 var postcssPlugins = []
 postcssPlugins.push(

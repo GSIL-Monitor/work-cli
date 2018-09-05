@@ -64,6 +64,7 @@
     "node-sass": "^4.9.0",
     "nyan-progress-webpack-plugin": "^1.2.0",
     "on-build-webpack": "^0.1.0",
+    "page-skeleton-webpack-plugin": "^0.10.12",
     "postcss-extend": "^1.0.5",
     "postcss-import": "^11.1.0",
     "postcss-loader": "^2.0.8",
@@ -92,6 +93,7 @@
     "webpack-dev-server": "2.7.1",
     "webpack-hot-middleware": "^2.22.1",
     "webpack-inline-manifest-plugin": "^4.0.1",
+    "webpack-log": "^2.0.0",
     "webpack-md5-hash": "^0.0.6",
     "webpack-stable-module-id-and-hash": "^1.0.5",
     "workbox-webpack-plugin": "^3.3.1"

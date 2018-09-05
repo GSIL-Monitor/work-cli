@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>懂车英雄</title>
+    <script>
+  /* 禁止微信调整字体大小 */
+  !function () { function e() { WeixinJSBridge.invoke("setFontSizeCallback", { fontSize: 0 }), WeixinJSBridge.on("menu:setfont", function () { WeixinJSBridge.invoke("setFontSizeCallback", { fontSize: 0 }) }) } "object" == typeof WeixinJSBridge && "function" == typeof WeixinJSBridge.invoke ? e() : document.addEventListener ? document.addEventListener("WeixinJSBridgeReady", e, !1) : document.attachEvent && (document.attachEvent("WeixinJSBridgeReady", e), document.attachEvent("onWeixinJSBridgeReady", e)) }();
+  /* flexable */
+  (function (win, lib) { var doc = win.document; var docEl = doc.documentElement; var dpr = 0; var tid; var flexible = lib.flexible || (lib.flexible = {}); var isIPhone = win.navigator.appVersion.match(/iphone/gi); var devicePixelRatio = win.devicePixelRatio; if (isIPhone) { if (devicePixelRatio >= 3 && (!dpr || dpr >= 3)) { dpr = 3 } else { if (devicePixelRatio >= 2 && (!dpr || dpr >= 2)) { dpr = 2 } else { dpr = 1 } } } else { dpr = 1 } docEl.setAttribute("data-dpr", dpr); if (doc.readyState === "complete") { doc.body.style.fontSize = 12 + "px" } else { doc.addEventListener("DOMContentLoaded", function () { doc.body.style.fontSize = 12 + "px" }, false) } function refreshRem() { var width = docEl.getBoundingClientRect().width; var rem = width / 7.5; docEl.style.fontSize = rem + "px"; flexible.rem = win.rem = rem } var evt = "onorientationchange" in window ? "orientationchange" : "resize"; win.addEventListener(evt, function () { clearTimeout(tid); tid = setTimeout(refreshRem, 300) }, false); win.addEventListener("pageshow", function (e) { if (e.persisted) { clearTimeout(tid); tid = setTimeout(refreshRem, 300) } }, false); refreshRem(); flexible.dpr = win.dpr = dpr; flexible.refreshRem = refreshRem; flexible.rem2px = function (d) { var val = parseFloat(d) * this.rem; if (typeof d === "string" && d.match(/rem$/)) { val += "px" } return val }; flexible.px2rem = function (d) { var val = parseFloat(d) / this.rem; if (typeof d === "string" && d.match(/px$/)) { val += "rem" } return val } })(window, window["lib"] || (window["lib"] = {}));
+</script>
+    
+    
+    <script src="//s3.pstatp.com/toutiao/monitor/sdk/slardar.js"></script>
+<script>
+    window.Slardar && window.Slardar.install({
+        sampleRate: 1,
+        bid: 'motor_inapp',
+        pid: window.pageName || '',
+        ignoreAjax: [],
+        ignoreStatic: []
+    });
+</script>
+<script src="//s3.pstatp.com/inapp/lib/raven.js" crossorigin="anonymous"></script>
+<script>
+;(function(window) {
+    window.Raven && Raven.config('//key@m.toutiao.com/log/sentry/v2/360', {
+        whitelistUrls: [/pstatp\.com/],
+        shouldSendCallback: function(data) {
+            return true;
+        },
+        tags: {
+            bid: 'motor_inapp',
+            pid: window.pageName || '',
+        }
+    }).install();
+})(window);
+</script>
+
+    
+    
+</head>
+<body>
+    <div id="root">
+        <style>body{font-size:.4rem!important}.sk-transparent{color:transparent!important}.sk-pseudo::after,.sk-pseudo::before{background:#efefef!important;color:transparent!important;border-color:transparent!important}.sk-pseudo-rect::after,.sk-pseudo-rect::before{border-radius:0!important}.sk-pseudo-circle::after,.sk-pseudo-circle::before{border-radius:50%!important}@keyframes blink{0%,100%{opacity:.4}50%{opacity:1}}.blink{animation-duration:2s;animation-name:blink;animation-iteration-count:infinite}</style>
+
+
+  <div id=root class="sk-pseudo sk-pseudo-circle blink">
+    <div class="app sk-pseudo sk-pseudo-circle">
+      <div class="sk-transparent sk-pseudo sk-pseudo-circle">3333333333333hello world33333333333333333333333 33333333333333333333333333333</div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+        
+<script>
+    if ('serviceWorker' in navigator && location.host !== 'localhost') {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js').then(registration => {
+            console.log('SW registered: ', registration);
+            }).catch(registrationError => {
+            console.log('SW registration failed: ', registrationError);
+            });
+        });
+    }
+</script>
+    
+    <script src="/js/commons.js" crossorigin="anonymous"></script>
+    
+    <script src="/js/vendors.js" crossorigin="anonymous"></script>
+    
+    <script src="/js/index.js" crossorigin="anonymous"></script>
+    
+
+    <script>
+      window._pageSkeletonSocketPort = 7890
+    </script>
+    <script type="text/javascript" src="http://localhost:7890/__webpack_page_skeleton__/index.bundle.js" defer></script>
+    </body>
+</html>

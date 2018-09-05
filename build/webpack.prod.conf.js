@@ -7,7 +7,7 @@ config = Object.assign({
     mode: "production"
 }, config)
 var analyze = process.env.analyze || 'reject';
-// config.plugins = config.plugins.concat([
+config.plugins = config.plugins.concat([
     // 持久化缓存
     new WebpackInlineManifestPlugin({name: 'webpackManifest'}),
     // new UglifyJsPlugin({
@@ -32,7 +32,7 @@ var analyze = process.env.analyze || 'reject';
     //         }
     //     },
     // }),
-// ])
+])
 
 if (analyze === 'resolve') {
 
