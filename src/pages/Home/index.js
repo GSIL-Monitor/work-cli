@@ -1,13 +1,20 @@
 import React, { PureComponent } from 'react'
 import './style.css'
-import { helloworld } from '$utils/test'
+import {ContextConsumer} from '$src/context/index'
+
 class Home extends PureComponent {
+  changeState = () => {
+    this.props.commit('pos.position', 'absolute')
+  }
+
   render () {
     return (
-      <div>3333333333333{helloworld()}33333333333333333333333
-      33333333333333333333333333333</div>
+      <div>{this.props.position}<button onClick={this.changeState}>修改state</button></div>
     )
   }
 }
-
-export default Home
+export default ContextConsumer((state) => {
+  return {
+    position: state.pos.position
+  }
+})(Home)
