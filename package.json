@@ -1,6 +1,6 @@
 {
   "name": "work-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "a  cli for  work",
   "main": "index.js",
   "bin": {
