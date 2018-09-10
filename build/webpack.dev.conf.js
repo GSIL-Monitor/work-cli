@@ -13,7 +13,7 @@ Object.keys(config.entry).forEach(function (name) {
             'react-hot-loader/patch',
             'webpack/hot/dev-server',
             'webpack-hot-middleware/client?reload=true',
-            path.join(__dirname, '../', srcMap.scripts[name])
+            config.entry[name]
         ]
     }
 })

@@ -8,7 +8,7 @@ module.exports = {
       "host": "0.0.0.0",
       "browserPort": "9090",
       "publicPath": path,
-      "autoOpen": `${path}index.html`
+      "autoOpen": `${path}`
     },
   
     prod: {

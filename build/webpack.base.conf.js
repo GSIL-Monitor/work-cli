@@ -66,60 +66,8 @@ function relative(name) {
 
 var rootPath = relative(''); // 项目根目录
 
-var entries = {}, plugins = [];
-resolve_script_entry('', mapConfig.scripts)
-resolve_pages(mapConfig.directories.pages, mapConfig.pages)
+var plugins = [];
 
-function resolve_script_entry(path, names) {
-    if (!names) { return }
-    if (typeof names === 'object' && !Array.isArray(names)) {
-        for (let key in names) {
-            resolve_script_entry(path + '/' + key, names[key])
-        }
-        return
-    }
-    if (!Array.isArray(names)) {
-        names = [names]
-    }
-    path = path.slice(1)
-    entries[path] = names.map(name => /\.jsx?$/.test(name) ? relative(name.replace(/%name/g, path)) : name)
-}
-
-function resolve_pages(path = "", files) {
-    for (let basename in files) {
-        const filename = basename
-        const file = files[basename], scripts = file.scripts || {}
-
-        const chunks = []
-        for (let key in scripts) {
-            const val = scripts[key]
-            if (Array.isArray(val)) {
-                chunks.push.apply(chunks, val)
-            } else {
-                chunks.push(val)
-                scripts[key] = [val]
-            }
-        }
-
-        const options = {
-            multihtmlCache: true,
-            filename: filename,
-            template: path + '/' + (file.source || filename),
-            inject: false,
-            chunks: chunks,
-            head: scripts.head || [],
-            body: scripts.body || []
-        }
-
-        file.options && Object.assign(options, file.options)
-        plugins.push(new HtmlWebpackPlugin(options))
-    }
-    // plugins.push(new SkeletonPlugin({
-    //     routes: ['/index.html'], // 将需要生成骨架屏的路由添加到数组中
-    //     pathname: relative('src'),
-    //     staticDir: relative('dist')
-    // }))
-}
 var postcssPlugins = []
 postcssPlugins.push(
     pxtorem({ rootValue: 50, propWhiteList: [] }),
@@ -142,8 +90,11 @@ var babelOpts = {
             "modules": false,
             "loose": true
         }]
-        , 'react', 'stage-0'],
-    plugins: ['transform-decorators-legacy', 'lodash']
+        , "es2015", 'react', 'stage-0'],
+    plugins: [["transform-runtime", {
+        "polyfill": false,
+        "regenerator": true
+      }], 'transform-decorators-legacy', 'lodash']
 }
 if (__DEV__) {
     babelOpts.plugins.push('dva-hmr')
@@ -154,7 +105,9 @@ if (__DEV__) {
     )
 }
 var config = {
-    entry: entries,
+    entry: {
+        'index': path.resolve(__dirname, "../", "src/index.js")
+    },
     output: {
         path: __DEV__ ? relative('dist', devConfig.outputPath) : relative('dist'),
         filename: `js/[name]${__DEV__ ? '' : '_[chunkhash]'}.js`,
@@ -292,6 +245,19 @@ var config = {
         new webpack.optimize.ModuleConcatenationPlugin(), // Scope Hoisting https://zhuanlan.zhihu.com/p/27980441
         new CleanWebpackPlugin(['dist'], {
             root: rootPath
+        }),
+
+        new HtmlWebpackPlugin({
+            filename: "index.html",
+            template: path.resolve(__dirname, '../', 'src/templates/index.html'),
+            chunks: ["commons", "vendors", "index"],
+            inject: true
+        }),
+
+        new SkeletonPlugin({
+            routes: ['/'], // 将需要生成骨架屏的路由添加到数组中
+            pathname: relative('src/templates'),
+            staticDir: relative('dist')
         }),
 
         new GenerateSW({

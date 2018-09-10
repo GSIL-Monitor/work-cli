@@ -1,20 +1,32 @@
 import React, { PureComponent } from 'react'
 import './style.css'
-import {ContextConsumer} from '$src/context/index'
-
+import { connect } from 'dva'
 class Home extends PureComponent {
-  changeState = () => {
-    this.props.commit('pos.position', 'absolute')
+  constructor () {
+    super()
+    this.state = {
+      position: ''
+    }
+  }
+
+  componentDidMount () {
+    this.props.dispatch({
+
+    })
   }
 
   render () {
     return (
-      <div>{this.props.position}<button onClick={this.changeState}>修改state</button></div>
+      <div>
+        <p>{this.props.color}</p>
+        <button onClick={this.changeState}>修改state</button>
+      </div>
     )
   }
 }
-export default ContextConsumer((state) => {
+
+export default connect((state) => {
   return {
-    position: state.pos.position
+    color: state.example.color
   }
 })(Home)
