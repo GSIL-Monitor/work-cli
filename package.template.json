@@ -1,5 +1,5 @@
 {
-  "name": {{projectName}},
+  "name": "{{projectName}}",
   "description": "懂车英雄离线版",
   "author": "hewenxuan",
   "version": "1.0.0",
