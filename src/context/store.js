@@ -1,6 +1,6 @@
 export default {
   color: 'red',
   pos: {
-    position: 'relative'
+    position: 'relative1'
   }
 }

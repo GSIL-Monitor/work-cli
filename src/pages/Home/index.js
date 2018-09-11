@@ -4,7 +4,7 @@ import {ContextConsumer} from '$src/context/index'
 
 class Home extends PureComponent {
   changeState = () => {
-    this.props.commit('pos.position', 'absolute')
+    this.props.commit('pos.position', 'abso')
   }
 
   render () {

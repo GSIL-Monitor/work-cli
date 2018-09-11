@@ -31,6 +31,7 @@ const utils = require("util");
 const { SkeletonPlugin } = require('page-skeleton-webpack-plugin')
 // 支持webpack4，把项目按webpack4重新配置
 const HtmlCriticalWebpackPlugin = require("html-critical-webpack-plugin");
+let babelOpts = require('../.babelrc.js');
 
 var __DEV__ = process.env.NODE_ENV === 'development'
 var __TEST__ = process.env.NODE_ENV === 'test'
@@ -131,22 +132,7 @@ postcssPlugins.push(
     cssnano()
 )
 
-var babelOpts = {
-    cacheDirectory: true,
-    presets: [
-        ["env", {
-            "targets": {
-                "browsers": ["last 2 versions", "safari >= 7"]
-            },
-            // 开启tree shaking
-            "modules": false,
-            "loose": true
-        }]
-        , 'react', 'stage-0'],
-    plugins: ['transform-decorators-legacy', 'lodash']
-}
 if (__DEV__) {
-    babelOpts.plugins.push('dva-hmr')
     babelOpts.plugins.push('react-hot-loader/babel')
 } else {
     postcssPlugins.push(
