@@ -1,6 +1,6 @@
 {
   "name": "{{projectName}}",
-  "description": "懂车英雄离线版",
+  "description": "{{projectDesc}}",
   "author": "hewenxuan",
   "version": "1.0.0",
   "scripts": {
