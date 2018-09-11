@@ -2,6 +2,8 @@ var webpack = require('webpack')
 var WebpackInlineManifestPlugin = require('webpack-inline-manifest-plugin')
 var UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const { SkeletonPlugin } = require('page-skeleton-webpack-plugin-multiple')
+
 var config = require('./webpack.base.conf.js')
 config = Object.assign({
     mode: "production"
@@ -10,6 +12,12 @@ var analyze = process.env.analyze || 'reject';
 config.plugins = config.plugins.concat([
     // 持久化缓存
     new WebpackInlineManifestPlugin({name: 'webpackManifest'}),
+
+    new SkeletonPlugin({
+        routes: ['http://0.0.0.0:9090/motor/sf/car_hero/index.html'], // 将需要生成骨架屏的路由添加到数组中
+        pathname: relative('src'),
+        staticDir: relative('dist')
+    })
     // new UglifyJsPlugin({
     //     cache: true,
     //     parallel: true,
