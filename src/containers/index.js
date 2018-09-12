@@ -2,16 +2,16 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import Home from '$pages/Home'
-import {ContextProvider} from '$src/context/index'
+import {Provider} from '$src/context/index'
 
 const MOUNT_NODE = document.getElementById('root')
 class App extends Component {
   render () {
     return (
       <div className="app">
-        <ContextProvider >
+        <Provider >
           <Home />
-        </ContextProvider>
+        </Provider>
       </div>
     )
   }

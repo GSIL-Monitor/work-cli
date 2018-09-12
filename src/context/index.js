@@ -3,8 +3,8 @@ import store from './store'
 import produce from 'immer'
 import setValue from 'set-value'
 
-const {Provider, Consumer} = React.createContext()
-export class ContextProvider extends PureComponent {
+const Context = React.createContext()
+export class Provider extends PureComponent {
   constructor (props) {
     super(props)
     this.state = {
@@ -29,7 +29,7 @@ export class ContextProvider extends PureComponent {
   render () {
     const { children } = this.props
     return (
-      <Provider
+      <Context.Provider
         value={{
           commit: this.commit,
           dispatch: this.dispatch,
@@ -37,12 +37,12 @@ export class ContextProvider extends PureComponent {
         }}
       >
         {children}
-      </Provider>
+      </Context.Provider>
     )
   }
 }
 
-export const ContextConsumer = (retStatesFunc) => {
+export const Consumer = (retStatesFunc) => {
   if (typeof retStatesFunc !== 'function') {
     retStatesFunc = (state) => state
   }
@@ -50,14 +50,14 @@ export const ContextConsumer = (retStatesFunc) => {
   return (OtherComponent) => {
     return class WrapperComponent extends PureComponent {
       render () {
-        return <Consumer>
+        return <Context.Consumer>
           {
             context => {
               let params = retStatesFunc(context.store) || context.store
               return <OtherComponent {...params} commit={context.commit} dispatch={context.dispatch}/>
             }
           }
-        </Consumer>
+        </Context.Consumer>
       }
     }
   }

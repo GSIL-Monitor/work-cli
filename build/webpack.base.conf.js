@@ -158,7 +158,10 @@ var config = {
             {
                 test: /\.(jsx|js)?$/,
                 include: relative('src'),
-                use: 'happypack/loader?id=babel',
+                use: [{
+                    loader: 'babel-loader',
+                    options: babelOpts
+                }],
             },
             {
                 test: /\.css$/,
@@ -301,37 +304,29 @@ var config = {
         }),
         new WebpackDeepScopeAnalysisPlugin(),
         new webpack.optimize.SplitChunksPlugin({
-            chunks: "initial",            // 必须三选一：'initial' | 'all' | 'async'
+            chunks: "async",            // 必须三选一：'initial' | 'all' | 'async'
             minSize: 30000,
             minChunks: 1,
             maxAsyncRequests: 5,
             maxInitialRequests: 3,
             name: true,
             cacheGroups: {
+                // 禁用默认分组
                 vendors: {
                     chunks: 'all',
                     test: /node_modules/,      // 正则规则验证，如果符合就提取chunks
                     name: "vendors"            // 要缓存的分割出来的chunk名称
                 },
-                default: {
-                    chunks: 'all',
-                    name: 'commons',
-                    reuseExistingChunks: true
-                }
+                // default: {
+                //     chunks: 'all',
+                //     name: 'commons',
+                //     reuseExistingChunks: true
+                // }
             }
         }),
 
         new webpack.HashedModuleIdsPlugin(),  // 优化hash值=>缓存优化
 
-        new HappyPack({
-            // 用唯一的标识符 id 来代表当前的 HappyPack 是用来处理一类特定的文件
-            id: 'babel',
-            // 如何处理 .js 文件，用法和 Loader 配置中一样
-            loaders: [{
-                loader: 'babel-loader',
-                options: babelOpts
-            }]
-        }),
         function () {
             this.plugin("done", function (stats) {
                 require("fs").writeFileSync(

@@ -13,7 +13,7 @@ module.exports = {
     pages: {
         "index.html": {
             scripts: {
-                body: [ "commons", "vendors", "index" ]
+                body: ["vendors", "index" ]
             },
             source: "default.html"
         }
