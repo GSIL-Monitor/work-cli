@@ -1,6 +1,6 @@
 {
-  "name": "{{projectName}}",
-  "description": "{{projectDesc}}",
+  "name": "projectname",
+  "description": "{{projectdesc}}",
   "author": "hewenxuan",
   "version": "1.0.0",
   "scripts": {
