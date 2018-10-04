@@ -1,6 +1,6 @@
 {
-  "name": "projectname",
-  "description": "{{projectdesc}}",
+  "name": "work-react-template",
+  "description": "description",
   "author": "hewenxuan",
   "version": "1.0.0",
   "scripts": {

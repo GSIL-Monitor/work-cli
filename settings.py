@@ -1,7 +1,7 @@
 APP_TYPE = "binary"
-PRODUCT = "motor"
-SUBSYS = "sf"
-MODULE = "car_hero"
+PRODUCT = "{{product}}"
+SUBSYS = "{{subsys}}"
+MODULE = "{{module}}"
 #PORT = "2000"
 #SERVICE_PORT = "2000"
 #REQUIRE_NGINX = False

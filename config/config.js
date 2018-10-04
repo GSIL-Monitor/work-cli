@@ -1,8 +1,7 @@
-
-const path = "/motor/sf/car_hero/";
-const stagePath = "/motor/inapp/car_hero/";
+const path = "/{{psm}}/";
 
 module.exports = {
+    path: path,
     dev: {
       "protocol": "http",
       "host": "0.0.0.0",
@@ -16,7 +15,7 @@ module.exports = {
     },
 
     stage: {
-      "publicPath": stagePath,
-      "stagePath": stagePath
+      "publicPath": path,
+      "stagePath": path
     }
 }
