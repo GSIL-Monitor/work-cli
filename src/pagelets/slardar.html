@@ -1,0 +1,25 @@
+<script src="//s3.pstatp.com/toutiao/monitor/sdk/slardar.js"></script>
+<script>
+    window.Slardar && window.Slardar.install({
+        sampleRate: 1,
+        bid: 'motor_inapp',
+        pid: window.pageName || '',
+        ignoreAjax: [],
+        ignoreStatic: []
+    });
+</script>
+<script src="//s3.pstatp.com/inapp/lib/raven.js" crossorigin="anonymous"></script>
+<script>
+;(function(window) {
+    window.Raven && Raven.config('//key@m.toutiao.com/log/sentry/v2/360', {
+        whitelistUrls: [/pstatp\.com/],
+        shouldSendCallback: function(data) {
+            return true;
+        },
+        tags: {
+            bid: 'motor_inapp',
+            pid: window.pageName || '',
+        }
+    }).install();
+})(window);
+</script>

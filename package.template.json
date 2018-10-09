@@ -1,6 +1,6 @@
 {
-  "name": "work-vue-template",
-  "description": "work-vue-template",
+  "name": "{{projectName}}",
+  "description": "{{projectDesc}}",
   "author": "",
   "version": "1.0.0",
   "scripts": {

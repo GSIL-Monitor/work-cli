@@ -1,0 +1,29 @@
+{
+  "extends": [
+    "prettier", 
+    "plugin:vue/base",
+    "plugin:vue/recommended"
+  ],
+  "plugins": [
+    "prettier",
+    "html"
+  ],
+  "root": true,
+  "parserOptions": {
+    "parser": "babel-eslint",
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "globals": {
+    "__DEV__": true,
+    "__TEST__": true
+  },
+  "rules": {
+    "camelcase": [0]
+  }
+}
